@@ -1,0 +1,509 @@
+{% extends 'adminbase.html' %} {% block content %}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="page-title-box">
+        {% if userdetails %}
+        <button type="button" class="btn btn-light mt-4 mb-4"><a href="{% url 'adminusers' %}" style="color:black"><i class="mdi mdi-arrow-left-thick me-1"></i> <span>Back</span></a> </button>
+        {% else %}
+        <h4 class="page-title">Users</h4>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+{% if allusers %}
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        {% include 'messages.html' %}
+        
+
+        <div class="card-body">
+        
+          <div class="row mb-2">
+            <div class="col-xl-8">
+              <form action="" method="POST"
+                class="
+                  row
+                  gy-2
+                  gx-2
+                  align-items-center
+                  justify-content-xl-start justify-content-between
+                "
+              >
+              {% csrf_token %}
+                <div class="col-auto">
+                  <label for="inputPassword2" class="visually-hidden"
+                    >Search</label
+                  >
+                  <input
+                    type="search"
+                    class="form-control"
+                    id="inputPassword2"
+                    name="searchquery"
+                    placeholder="Search for a user..."
+                  />
+                </div>
+                <div class="col-auto">
+                  <div class="col-xl-4">
+                    <div class="text-xl-end mt-xl-0 mt-2">
+                      <button type="submit" class="btn btn-dark me-1" name="action" value="search">
+                        Search
+                      </button>
+                    
+                    </div>
+                  </div>
+                  <!-- end col-->
+                </div>
+              </form>
+            </div>
+            <div class="col-xl-4">
+              <div class="text-xl-end mt-xl-0 mt-2">
+                <button
+                  type="button"
+                  class="btn btn-dark mb-2 me-2"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                >
+                  <i class="mdi mdi-account-plus me-1"></i> Add New User
+                </button>
+                
+                <a href="{% url 'adminusers' %}" ><button type="button" class="btn btn-dark mb-2">  <i class="mdi mdi-autorenew"></i></button></a>
+               
+               
+              </div>
+            </div>
+            <!-- end col-->
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-centered mb-0">
+              <thead class="table-light">
+                <tr>
+                  
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Age</th>
+                  <th>Email</th>
+                  <th>Telephone</th>
+                  <th>Status</th>
+                  <th style="width: 125px">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for p in allusers  %}
+                <tr>
+                  
+                  <td>
+                    <a
+                      href="{% url 'adminusers' %}?uid={{p.id}}"
+                      class="text-body fw-bold"
+                      >{{p.first_name}}</a
+                    >
+                  </td>
+                  <td>
+                    {{p.last_name}}
+                  </td>
+                  <td>
+                    {{p.age}}
+                  </td>
+                  <td>{{p.email}}</td>
+                  <td>{{p.tel}}</td>
+                  <td>
+                    <h4>
+                    {% if p.status %}
+                      <span class="badge badge-info-lighten">{{p.status}}</span>
+                      {% else %}
+                      <span >Update status</span>
+                      {% endif %}
+                    </h4>
+                  </td>
+                  <td>
+                    
+                    <a href="{% url 'adminusers' %}?uid={{p.id}}" class="action-icon">
+                      <i class="mdi mdi-square-edit-outline"></i
+                    ></a>
+                   
+                  </td>
+                </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- end card-body-->
+      </div>
+      <!-- end card-->
+    </div>
+    <!-- end col -->
+  </div>
+  <!-- end row -->
+{% endif %}
+
+{% if nousers %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-xl-12">
+                    <div class="text-xl-end mt-xl-0 mt-2">
+                        <button
+                        type="button"
+                        class="btn btn-dark mb-2 me-2"
+                        data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop"
+                        >
+                        <i class="mdi mdi-account-plus me-1"></i> Add New User
+                        </button>
+                        
+                    </div>
+                </div>
+            <!-- end col-->
+                <h3>{{nousers}}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+{% if noresults %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-xl-12">
+                    <div class="text-xl-end mt-xl-0 mt-2">
+                        <button
+                        type="button"
+                        class="btn btn-dark mb-2 me-2"
+                        data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop"
+                        >
+                        <i class="mdi mdi-account-plus me-1"></i> Add New User
+                        </button>
+                      
+                        <button type="button" class="btn btn-dark mb-2"> <a href="{% url 'adminusers' %}" > <i class="mdi mdi-autorenew"></i></a></button>
+                    </div>
+                </div>
+            <!-- end col-->
+                <h3>{{noresults}}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+{% if nothingentered %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-xl-12">
+                    <div class="text-xl-end mt-xl-0 mt-2">
+                        <button
+                        type="button"
+                        class="btn btn-dark mb-2 me-2"
+                        data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop"
+                        >
+                        <i class="mdi mdi-account-plus me-1"></i> Add New User
+                        </button>
+                        
+                        <button type="button" class="btn btn-dark mb-2"> <a href="{% url 'adminusers' %}" > <i class="mdi mdi-autorenew"></i></a></button>
+                    </div>
+                </div>
+            <!-- end col-->
+                <h3>{{nothingentered}}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if userdetails %}
+                        
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-5">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <img src="/static/assets/images/users/avatar-1.jpg" class="rounded-circle avatar-lg img-thumbnail"
+                                        alt="profile-image">
+                                        {% if userdetails.first_name %}
+                                        <h4 class="mb-0 mt-2">{{userdetails.first_name}} {{userdetails.last_name}}</h4>
+                                        {% else %}
+                                        <h4 class="mb-0 mt-2">{{userdetails.username}}</h4>
+                                        {% endif %}
+                                        <p class="text-muted font-14">Church Member</p>
+
+                                       
+                                        <div class="text-start mt-3">
+                                            <h4 class="font-13 text-uppercase">About Me :</h4>
+                                            {% if userdetails.bio %}
+                                            <p class="text-muted font-13 mb-3">
+                                               {{userdetails.bio}}
+                                            </p>
+                                            {% else %}
+                                            <p class="text-muted font-13 mb-3">
+                                                User bio not updated...
+                                            </p>
+                                            {% endif %}
+                                            <p class="text-muted mb-2 font-13"><strong>Full Name :</strong> 
+                                            {% if userdetails.first_name %}
+                                            <span class="ms-2">{{userdetails.first_name}} {{userdetails.last_name}}</span>
+                                            {% else %}
+                                            <span class="ms-2">User name not updated...</span>
+                                            {% endif %}
+                                            </p>
+
+                                            <p class="text-muted mb-2 font-13"><strong>Age :</strong> 
+                                            {% if userdetails.age %}
+                                            <span class="ms-2">{{userdetails.age}}</span>
+                                            {% else %}
+                                            <span class="ms-2">User age not updated...</span>
+                                            {% endif %}
+                                            </p>
+
+                                            <p class="text-muted mb-2 font-13"><strong>Mobile :</strong>
+                                            {% if userdetails.tel %}
+                                            <span class="ms-2">{{userdetails.tel}}</span>
+                                            {% else %}
+                                            <span class="ms-2">User phone number not updated...</span>
+                                            {% endif %}        
+                                            </p>
+
+                                            <p class="text-muted mb-2 font-13"><strong>Email :</strong> <span class="ms-2 ">{{userdetails.email}}</span></p>
+
+                                            
+                                        </div>
+
+                                        <ul class="social-list list-inline mt-3 mb-0">
+                                            <li class="list-inline-item">
+                                                <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i
+                                                        class="mdi mdi-facebook"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i
+                                                        class="mdi mdi-google"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="javascript: void(0);" class="social-list-item border-info text-info"><i
+                                                        class="mdi mdi-twitter"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i
+                                                        class="mdi mdi-github"></i></a>
+                                            </li>
+                                        </ul>
+
+                                         <div class="d-grid mt-4">
+                                                            <button type="button" class="btn btn-danger"><a href="{% url 'adminusers' %}?delid={{userdetails.id}}" style="color:white"><i class="mdi mdi-account-remove-outline"> </i>Delete User</a></button>
+                                                        </div>
+
+                                    </div> <!-- end card-body -->
+                                </div> <!-- end card -->
+
+                            </div> <!-- end col-->
+
+                            <div class="col-xl-8 col-lg-7">
+                                <div class="card">
+                                {% include 'messages.html' %}
+                                    <div class="card-body">
+                                        <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+                                        
+                                            <li class="nav-item">
+                                                <a href="#settings" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
+                                                   Profile Setting
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+    
+                                            <div class="tab-pane show active" id="settings">
+                                                <form action="" method="POST">
+                                                {% csrf_token %}
+                                                    <h5 class="mb-4 text-uppercase"><i class="mdi mdi-account-question-outline me-1"></i>Status</h5>
+                                                    
+
+                                                    <div class="row g-2">
+                                                        <div class="col-md">
+                                                            <div class="form-floating">
+                                                                <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" name="branch">
+                                                                {% if userdetails.church_branch %}
+                                                                <option selected value={{userdetails.church_branch}}>{{userdetails.church_branch}}</option>
+                                                                {% else %}
+                                                                <option selected value="none">Select User Church Branch</option>
+                                                                {% endif %}
+                                                                    
+                                                                    <option value="Spintex">Spintex</option>
+                                                                    <option value="East Legon">East Legon</option>
+                                                                    <option value="Cantoment">Cantoment</option>
+                                                                </select>
+                                                                <label for="floatingSelectGrid">User Church Branch</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md">
+                                                            <div class="form-floating">
+                                                                <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example" name="status">
+                                                                {% if userdetails.status %}
+                                                                    <option selected value={{userdetails.status}}>{{userdetails.status}}</option>
+                                                                    {% else %}
+                                                                    <option selected value="none">Select User Church Status</option>
+                                                                    {% endif %}
+                                                                    <option value="Active">Active</option>
+                                                                    <option value="Inactive">Inactive</option>
+                                                                    <option value="Deceased">Deceased</option>
+                                                                </select>
+                                                                <label for="floatingSelectGrid">User Church Status </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <h5 class="mb-4 mt-4 text-uppercase"><i class="mdi mdi-account-group-outline me-1"></i> Family Hierarchy</h5>
+
+                                                    <div class="row">
+                                                        <div class="mb-3 col-md-6">
+                                                            <label for="gfather" class="form-label">Grand Father</label>
+                                                            <input type="text" class="form-control" id="gfather" disabled="" {% if fam %} {% if fam.gfather %} value="{{fam.gfather.first_name |ljust:"7"}}{{fam.gfather.last_name}} ({{fam.gfather.username}})"{% else %} value="Not set by user"{% endif %}{% endif %} /> 
+                                                        </div>
+                                                        <div class="mb-3 col-md-6">
+                                                            <label for="gmother" class="form-label">Grand Mother</label>
+                                                            <input type="text" class="form-control" id="gmother" disabled="" {% if fam %} {% if fam.gmother %} value="{{fam.gmother.first_name |ljust:"7"}}{{fam.gmother.last_name}} ({{fam.gmother.username}})" {% else %}value="Not set by user"{% endif %}{% endif %} >
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                                            <label for="father" class="form-label">Father</label>
+                                                            <input type="text" class="form-control" id="father" disabled="" {% if fam %} {% if fam.father %} value="{{fam.father.first_name |ljust:"7"}}{{fam.father.last_name}} ({{fam.father.username}})" {% else %}value="Not set by user"{% endif %}{% endif %} >
+                                                        </div>
+                                                        <div class="mb-3 col-md-6">
+                                                            <label for="mother" class="form-label">Mother</label>
+                                                            <input type="text" class="form-control" id="mother" disabled="" {% if fam %} {% if fam.mother %} value="{{fam.mother.first_name |ljust:"7"}}{{fam.mother.last_name}}({{fam.mother.username}})"{% else %}value="Not set by user"{% endif %}{% endif %} >
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                                            <label for="spouse" class="form-label">Spouse</label>
+                                                            <input type="text" class="form-control" id="spouse" disabled="" {% if fam %} {% if fam.spouse %} value="{{fam.spouse.first_name |ljust:"7"}}{{fam.spouse.last_name}} ({{fam.spouse.username}})"{% else %}value="Not set by user"{% endif %}{% endif %} >
+                                                        </div>
+                                                        <div class="mb-3 col-md-6">
+                                                            <label for="child" class="form-label">Child</label>
+                                                            <input type="text" class="form-control" id="child" disabled="" {% if fam %} {% if fam.child %} value="{{fam.child.first_name |ljust:"7"}}{{fam.child.last_name}} ({{fam.child.username}})"{% else %}value="Not set by user"{% endif %}{% endif %} >
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <input hidden name="userid" value={{userdetails.id}} >
+                                                    <div class="text-end">
+                                                        <button type="submit" class="btn btn-success mt-2" name="action" value="updateuser"><i class="mdi mdi-content-save"  ></i> Update</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <!-- end settings content-->
+    
+                                        </div> <!-- end tab-content -->
+                                    </div> <!-- end card body -->
+                                </div> <!-- end card -->
+                            </div> <!-- end col -->
+                        </div>
+                        <!-- end row-->
+                        {% endif %}
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="staticBackdrop"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header modal-colored-header bg-dark">
+          <h4 class="modal-title" id="myCenterModalLabel"><i class="mdi mdi-account-plus me-1"></i>New User</h4>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-hidden="true"
+            style="olor: white"
+          >
+            X
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <form class="ps-3 pe-3" action="#" method="POST">
+          {% csrf_token %}
+            <div class="mb-3">
+              <label for="username" class="form-label">First Name</label>
+              <input
+                class="form-control"
+                type="text"
+                id="username"
+                required
+                name="fname"
+                placeholder="First Name"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="lname" class="form-label">Last Name</label>
+              <input
+                class="form-control"
+                type="text"
+                id="lname"
+                required
+                name="lname"
+                placeholder="Last Name"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="emailaddress" class="form-label">Email address</label>
+              <input
+                class="form-control"
+                type="email"
+                id="emailaddress"
+                required
+                name="email"
+                placeholder="example@example.com"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                class="form-control"
+                type="password"
+                required
+                name="password"
+                id="password"
+                placeholder="Enter your password"
+              />
+            </div>
+
+
+            <div class="mb-3 text-center">
+              <button class="btn btn-dark" type="submit" name="action" value="new user">
+                Register User
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- end modal content-->
+    </div>
+    <!-- end modal dialog-->
+  </div>
+  <!-- end modal-->
+</div>
+
+{% endblock content %}

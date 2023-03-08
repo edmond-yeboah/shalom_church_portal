@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+    <html lang="en">
+
+    
+<head>
+        <meta charset="utf-8" />
+        <title>Dashboard</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="/static/assets/images/favicon.ico">
+
+        <!-- third party css -->
+        <link href="/static/assets/css/vendor/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
+        <!-- third party css end -->
+        <!-- third party css -->
+        <link href="/static/assets/css/vendor/dataTables.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <link href="/static/assets/css/vendor/responsive.bootstrap4.css" rel="stylesheet" type="text/css" />
+        <!-- third party css end -->
+
+        <!-- App css -->
+        <link href="/static/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style" />
+        
+    </head>
+
+    <body class="loading" data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
+        <!-- Begin page -->
+        <div class="wrapper">
+            <!-- ========== Left Sidebar Start ========== -->
+            <div class="leftside-menu">
+    
+                <!-- LOGO -->
+                <a href="{% url 'home' %}" class="logo text-center logo-light">
+                    <span class="logo-lg">
+                        
+                        <p style="font-size:24px;">Shalom Assembly</p>
+                    
+                    </span>
+                    <span class="logo-sm">
+                        <img src="/static/assets/images/logo_sm.png" alt="" height="26">
+                    </span>
+                </a>
+
+                <!-- LOGO -->
+                <a href="{% url 'home' %}" class="logo text-center logo-dark">
+                    <span class="logo-lg">
+                        <img src="/static/assets/images/logo-dark.png" alt="" height="16">
+                    </span>
+                    <span class="logo-sm">
+                        <img src="/static/assets/images/logo_sm_dark.png" alt="" height="16">
+                    </span>
+                </a>
+    
+                <div class="h-100" id="leftside-menu-container" data-simplebar>
+
+                    <!--- Sidemenu -->
+                    <ul class="side-nav">
+
+                        <!-- <li class="side-nav-title side-nav-item">Navigation</li> -->
+
+                        <li class="side-nav-item">
+                            <a href="{% url 'admindash' %}" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+                                {% comment %} <span class="badge bg-success float-end">4</span> {% endcomment %}
+                                <span>Home</span>
+                            </a>
+                            
+                        </li>
+
+                        <!-- <li class="side-nav-title side-nav-item">Apps</li> -->
+
+                        <li class="side-nav-item">
+                            <a href="{% url 'adminusers' %}" class="side-nav-link">
+                                <i class="uil-users-alt"></i>
+                                <span> Users </span>
+                            </a>
+                        </li>
+
+                        <li class="side-nav-item">
+                            <a href="{% url 'adminsermon' %}" class="side-nav-link">
+                                <i class="uil-book-open "></i>
+                                <span> Sermons </span>
+                            </a>
+                        </li>
+
+                        <li class="side-nav-item">
+                            <a href="{% url 'adminfinance' %}" class="side-nav-link">
+                                <i class="uil-graph-bar"></i>
+                                <span> Finance </span>
+                            </a>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="{% url 'adminannouncement' %}" class="side-nav-link">
+                                <i class="uil-chat"></i>
+                                <span> Announcement </span>
+                            </a>
+                        </li>
+
+                        <li class="side-nav-item">
+                            <a href="{% url 'logout' %}" class="side-nav-link">
+                                <i class="uil-power"></i>
+                                <span> Logout </span>
+                            </a>
+                        </li>
+
+                        
+                    </ul>
+
+                    <!-- Help Box -->
+                    <div class="help-box text-white text-center">
+                        <a href="javascript: void(0);" class="float-end close-btn text-white">
+                            <i class="mdi mdi-close"></i>
+                        </a>
+                        <img src="/static/assets/images/help-icon.svg" height="90" alt="Helper Icon Image" />
+                        <h5 class="mt-3">{{thequote.verse}}</h5>
+                        <p class="mb-3">{{thequote.content}}</p>
+                        <!-- <a href="javascript: void(0);" class="btn btn-outline-light btn-sm">Upgrade</a> -->
+                    </div>
+                    <!-- end Help Box -->
+                    <!-- End Sidebar -->
+
+                    <div class="clearfix"></div>
+
+                </div>
+                <!-- Sidebar -left -->
+
+            </div>
+            <!-- Left Sidebar End -->
+
+            <!-- ============================================================== -->
+            <!-- Start Page Content here -->
+            <!-- ============================================================== -->
+
+            <div class="content-page">
+                <div class="content">
+                    <!-- Topbar Start -->
+                    <div class="navbar-custom">
+                        <ul class="list-unstyled topbar-menu float-end mb-0">
+                            <li class="dropdown notification-list d-lg-none">
+                                <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                    <i class="dripicons-search noti-icon"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
+                                    <form class="p-3">
+                                        <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
+                                    </form>
+                                </div>
+                            </li>
+                            
+                            <li class="dropdown notification-list">
+                                <a class="nav-link dropdown-toggle arrow-none"  data-bs-toggle="modal"
+                                data-bs-target="#announcementmodal" href="#" role="button" tooltip="New announcement" >
+                                    <i class="dripicons-document-edit noti-icon"></i>
+                                    {% comment %} <span class="noti-icon-badge"></span> {% endcomment %}
+                                </a>
+                            </li>
+
+                            {% comment %} <li class="dropdown notification-list"> {% endcomment %}
+                                {% comment %} <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                    <i class="dripicons-plus noti-icon"></i>
+                                   
+                                </a> {% endcomment %}
+                               
+                                {% comment %} <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg">
+
+                                    <!-- item-->
+                                    <div class="dropdown-item noti-title">
+                                        <h5 class="m-0">
+                                            <span class="float-end">
+                                                <a href="javascript: void(0);" class="text-dark">
+                                                    <small>Clear All</small>
+                                                </a>
+                                            </span>Notification
+                                        </h5>
+                                    </div>
+
+                                    <div style="max-height: 230px;" data-simplebar>
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                            <div class="notify-icon bg-primary">
+                                                <i class="mdi mdi-comment-account-outline"></i>
+                                            </div>
+                                            <p class="notify-details">Caleb Flakelar commented on Admin
+                                                <small class="text-muted">1 min ago</small>
+                                            </p>
+                                        </a>
+
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                            <div class="notify-icon bg-info">
+                                                <i class="mdi mdi-account-plus"></i>
+                                            </div>
+                                            <p class="notify-details">New user registered.
+                                                <small class="text-muted">5 hours ago</small>
+                                            </p>
+                                        </a>
+
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                            <div class="notify-icon">
+                                                <img src="assets/images/users/avatar-2.jpg" class="img-fluid rounded-circle" alt="" /> </div>
+                                            <p class="notify-details">Cristina Pride</p>
+                                            <p class="text-muted mb-0 user-msg">
+                                                <small>Hi, How are you? What about our next meeting</small>
+                                            </p>
+                                        </a>
+
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                            <div class="notify-icon bg-primary">
+                                                <i class="mdi mdi-comment-account-outline"></i>
+                                            </div>
+                                            <p class="notify-details">Caleb Flakelar commented on Admin
+                                                <small class="text-muted">4 days ago</small>
+                                            </p>
+                                        </a>
+
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                            <div class="notify-icon">
+                                                <img src="assets/images/users/avatar-4.jpg" class="img-fluid rounded-circle" alt="" /> </div>
+                                            <p class="notify-details">Karen Robinson</p>
+                                            <p class="text-muted mb-0 user-msg">
+                                                <small>Wow ! this admin looks good and awesome design</small>
+                                            </p>
+                                        </a>
+
+                                        <!-- item-->
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                            <div class="notify-icon bg-info">
+                                                <i class="mdi mdi-heart"></i>
+                                            </div>
+                                            <p class="notify-details">Carlos Crouch liked
+                                                <b>Admin</b>
+                                                <small class="text-muted">13 days ago</small>
+                                            </p>
+                                        </a>
+                                    </div>
+
+                                    <!-- All-->
+                                    <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
+                                        View All
+                                    </a>
+
+                                </div> {% endcomment %}
+                            {% comment %} </li> {% endcomment %}
+
+
+                            <li class="dropdown notification-list">
+                                <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                                    aria-expanded="false">
+                                    <span class="account-user-avatar"> 
+                                        <img src="/static/assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+                                    </span>
+                                    <span>
+                                    {% if request.user.first_name %}
+                                        <span class="account-user-name">{{request.user.first_name}}</span>
+                                    {% else %}
+                                        <span class="account-user-name">{{request.user.username}}</span>
+                                    {% endif %}
+                                        <span class="account-position">Church Admin</span>
+                                    </span>
+                                </a>
+                               
+
+                            </li>
+
+                        </ul>
+                        <button class="button-menu-mobile open-left">
+                            <i class="mdi mdi-menu"></i>
+                        </button>
+                        <div class="app-search dropdown d-none d-lg-block">
+                            <form>
+                                <div class="input-group">
+                                    <input type="text" class="form-control dropdown-toggle"  placeholder="Search..." id="top-search">
+                                    <span class="mdi mdi-magnify search-icon"></span>
+                                    <button class="input-group-text btn-primary" type="submit">Search</button>
+                                </div>
+                            </form>
+
+                            
+                        </div>
+                    </div>
+
+                    <div
+    class="modal fade"
+    id="announcementmodal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header modal-colored-header bg-dark">
+          <h4 class="modal-title" id="myCenterModalLabel">
+            <i class="uil-book-open me-1"></i>New Announcement
+          </h4>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-hidden="true"
+            style="olor: white"
+          >
+            X
+          </button>
+        </div>
+        <div class="modal-body">
+          
+
+          <form
+            class="ps-3 pe-3"
+            action=""
+            method="POST"
+            enctype="multipart/form-data"
+          >
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="title" class="form-label">Title</label>
+              <input
+                class="form-control"
+                type="text"
+                id="title"
+                required
+                name="title"
+                placeholder="Announcement title"
+              />
+            </div>
+
+
+            <label for="emailaddress" class="form-label">Content</label>
+            <div class="form-floating">
+              <textarea
+                class="form-control mb-4"
+                placeholder="Leave a comment here"
+                id="floatingTextarea"
+                name="content"
+                style="height: 100px"
+              ></textarea>
+              <label for="floatingTextarea">Write announcement...</label>
+            </div>
+
+            
+
+            <div class="mb-3 text-center">
+              <button
+                class="btn btn-dark"
+                type="submit"
+                name="action"
+                value="send announcement"
+              >
+                Send
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- end modal content-->
+    </div>
+    <!-- end modal dialog-->
+  </div>
+  <!-- end modal-->
+                    <!-- end Topbar -->
+                    {% block content %}
+                    <!-- Start Content-->
+                    
+                    {% endblock content %}
+
+                </div>
+                <!-- content -->
+
+                <!-- Footer Start -->
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <script>document.write(new Date().getFullYear())</script> © Shalom Assembly</div>
+                            <div class="col-md-6">
+                                <div class="text-md-end footer-links d-none d-md-block">
+                                    <a href="javascript: void(0);">About</a>
+                                    <a href="javascript: void(0);">Support</a>
+                                    <a href="javascript: void(0);">Contact Us</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!-- end Footer -->
+
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- End Page content -->
+            <!-- ============================================================== -->
+
+
+        </div>
+        <!-- END wrapper -->
+
+        <div class="rightbar-overlay"></div>
+        <!-- /End-bar -->
+
+        <!-- bundle -->
+        <script src="/static/assets/js/vendor.min.js"></script>
+        <script src="/static/assets/js/app.min.js"></script>
+
+        <!-- third party js -->
+        <script src="/static/assets/js/vendor/apexcharts.min.js"></script>
+        <script src="/static/assets/js/vendor/jquery-jvectormap-1.2.2.min.js"></script>
+        <script src="/static/assets/js/vendor/jquery-jvectormap-world-mill-en.js"></script>
+        <!-- third party js ends -->
+        <!-- third party js -->
+        <script src="/static/assets/js/vendor/jquery.dataTables.min.js"></script>
+        <script src="/static/assets/js/vendor/dataTables.bootstrap4.js"></script>
+        <script src="/static/assets/js/vendor/dataTables.responsive.min.js"></script>
+        <script src="/static/assets/js/vendor/responsive.bootstrap4.min.js"></script>
+        <script src="/static/assets/js/vendor/dataTables.checkboxes.min.js"></script>
+        <!-- third party js ends -->
+
+        <!-- demo app -->
+        <script src="/static/assets/js/pages/demo.dashboard.js"></script>
+        <!-- end demo js-->
+        <!-- demo app -->
+        <script src="/static/assets/js/pages/demo.customers.js"></script>
+        <!-- end demo js-->
+
+        <!-- third party js -->
+        <script src="assets/js/vendor/Chart.bundle.min.js"></script>
+        <!-- third party js ends -->
+
+        <!-- demo app -->
+        <script src="assets/js/pages/demo.project-detail.js"></script>
+        <!-- end demo js-->
+    </body>
+
+</html>

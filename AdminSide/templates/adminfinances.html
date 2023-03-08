@@ -1,0 +1,112 @@
+{% extends 'adminbase.html' %} {% block content %}
+
+<!-- Start Content-->
+<div class="container-fluid">
+  <!-- start page title -->
+  <div class="row">
+    <div class="col-12">
+      <div class="page-title-box">
+        <h4 class="page-title">Payment</h4>
+      </div>
+    </div>
+  </div>
+  <!-- end page title -->
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-xl-8">
+              <form
+                action=""
+                method="POST"
+                class="row gy-2 gx-2 align-items-center justify-content-xl-start justify-content-between"
+              >
+                {% csrf_token %}
+                <div class="col-auto">
+                  <label for="inputPassword2" class="visually-hidden"
+                    >Search</label
+                  >
+                  <input
+                    type="search"
+                    class="form-control"
+                    id="inputPassword2"
+                    name="searchquery"
+                    placeholder="Search for payment..."
+                  />
+                </div>
+                <div class="col-auto">
+                  <div class="col-xl-4">
+                    <div class="text-xl-end mt-xl-0 mt-2">
+                      <button
+                        type="submit"
+                        class="btn btn-dark me-1"
+                        name="action"
+                        value="search"
+                      >
+                        Search
+                      </button>
+                    </div>
+                  </div>
+                  <!-- end col-->
+                </div>
+              </form>
+              {% if nopayments %}{{nopayments}}{% endif %}
+            </div>
+           
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-centered mb-0">
+              <thead class="table-light">
+                <tr>
+                  
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Amount</th>
+                  <th>Payment Status</th>
+                  <th>Payment Method</th>
+                  <th>Date</th>
+                
+                </tr>
+              </thead>
+              {% if payments %} {% for p in payments %}
+              <tbody>
+                <tr>
+                  
+                  <td>{{p.fname}}</td>
+                  <td>{{p.lname}}</td>
+                  <td>{{p.email}}</td>
+                  <td>GH&#8373; {{p.amount}}.00</td>
+                  <td>
+                    <h4>
+                      <span class="badge badge-success-lighten"
+                        ><i class="mdi mdi-coin"></i> {{p.status}}</span
+                      >
+                    </h4>
+                  </td>
+                  <td>{{p.channel}}</td>
+                  <td>{{p.date_created}}</td>
+
+                  
+                </tr>
+
+                
+              </tbody>
+              {% endfor %} {% endif %}
+            </table>
+          </div>
+        </div>
+        <!-- end card-body-->
+      </div>
+      <!-- end card-->
+    </div>
+    <!-- end col -->
+  </div>
+  <!-- end row -->
+</div>
+<!-- container -->
+
+{% endblock content %}

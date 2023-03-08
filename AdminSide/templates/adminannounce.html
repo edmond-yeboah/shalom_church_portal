@@ -1,0 +1,92 @@
+{% extends 'adminbase.html' %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="page-title-box">
+          {% comment %} {% if userdetails %}
+          <button type="button" class="btn btn-light mt-4 mb-4"><a href="{% url 'adminusers' %}" style="color:black"><i class="mdi mdi-arrow-left-thick me-1"></i> <span>Back</span></a> </button>
+          {% else %} {% endcomment %}
+          <h4 class="page-title">Announcement</h4>
+        </div>
+      </div>
+    </div>
+  
+  {% if allannounce %}
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          {% include 'messages.html' %}
+          
+  
+          <div class="card-body">
+          
+            <div class="row mb-2">
+              <div class="col-xl-8">
+              </div>
+              <div class="col-xl-4">
+                <div class="text-xl-end mt-xl-0 mt-2">
+                  <button
+                    type="button"
+                    class="btn btn-dark mb-2 me-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#announcementmodal"
+                  >
+                    <i class="mdi mdi-plus me-1"></i> Send New Announcement 
+                  </button>
+                  
+                  <a href="{% url 'adminannouncement' %}" ><button type="button" class="btn btn-dark mb-2">  <i class="mdi mdi-autorenew"></i></button></a>
+                 
+                 
+                </div>
+              </div>
+              <!-- end col-->
+            </div>
+  
+            <div class="table-responsive">
+              <table class="table table-centered mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Date</th>
+                    <th>Sender</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                {% for p in allannounce  %}
+                  <tr>
+                    
+                    <td>
+                      {{p.title}}
+                    </td>
+                    <td>{{p.content}}</td>
+                    <td>{{p.added_on}}</td>
+                    <td>
+                        {% if p.added_by.first_name%}
+                        {{p.added_by.first_name}}+" "+ {{p.added_by.last_name}}
+                        {% else %}
+                        {{p.added_by.email}}
+                        {% endif %}
+                      
+                    </td>
+                    
+                  </tr>
+                  {% endfor %}
+  
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- end card-body-->
+        </div>
+        <!-- end card-->
+      </div>
+      <!-- end col -->
+    </div>
+    <!-- end row -->
+  {% endif %}
+</div>
+{% endblock content %}
