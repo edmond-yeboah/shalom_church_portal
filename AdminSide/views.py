@@ -278,6 +278,7 @@ def users(request):
         action = request.POST['action'] #getting the type of button that was clicked
         
         if action=="new user": #if the user clicked the add new user button
+            print("new user clicked")
             fname = request.POST['fname'] #get the first name entered by the user
             lname = request.POST['lname'] #get the last name entered by the user
             email = request.POST['email'] #get the email entered by the user
@@ -286,6 +287,7 @@ def users(request):
             #checking if email is already registerd with another user
             if Customusers.objects.filter(email=email).exists(): #if email already exist in the database
                 messages.info(request,"A user is already registered with this email") #message to the admin
+                return redirect('/AdminSide/users/') #redirecting to the users page
 
             else:
                 #registring the user
